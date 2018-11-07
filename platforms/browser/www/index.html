@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <!--
         Customize this policy to fit your own app's needs. For more guidance, see:
@@ -10,7 +11,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *"> -->
 
     <!-- Required meta tags-->
     <meta charset="utf-8">
@@ -29,6 +30,15 @@
 
     <link rel="stylesheet" href="lib/framework7/css/framework7.ios.min.css">
     <link rel="stylesheet" href="lib/framework7/css/framework7.ios.colors.min.css">
+    <!-- mapbox -->
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- mapbox direction -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.3/mapbox-gl-directions.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.3/mapbox-gl-directions.css'
+        type='text/css' />
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
 
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -55,9 +65,11 @@
                 <div class="navbar-inner">
                     <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
                     <div class="center sliding">
-                        <p>
-                            Test parking
-                        </p>
+                        <a href="index.html">Map</a>
+                        <a href="about.html">Liste</a>
+                        <a href="about.html">Favoris</a>
+                        poerer rezrrzer zerzezer  zer zrez zer zer reztr eert
+                        <i class="material-icons">face</i>
                     </div>
                     <div class="right">
                         <!--
@@ -75,27 +87,25 @@
                     <!-- Scrollable page content -->
                     <div class="page-content">
                         <div class="content-block">
-                            <p>Page content goes here</p>
-                            <!-- Link to another page -->
-                            <a href="about.html">About app</a>
+                            <div id="map"></div>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- Bottom Toolbar-->
-            <div class="toolbar">
+            <!-- <div class="toolbar">
                 <div class="toolbar-inner">
-                    <!-- Toolbar links -->
-                    <a href="#" class="link">Link 1</a>
-                    <a href="#" class="link">Link 2</a>
+            
+                    <p>App developed by ....</p>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <script type="text/javascript" src="js/my-app.js"></script>
+    <script type="text/javascript" src="js/maps.js"></script>
 </body>
 
 </html>
