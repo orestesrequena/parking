@@ -8,10 +8,6 @@ function getParkings() {
         dataType: "json",
         success: function(json) {
             alert("success Serveur "+json.nhits);
-
-            //var nbParkings = json.nhits;
-            //listParkings = json.records;
-            showParkings(json);
         },
         error: function(response) {
             alert("Erreur Serveur");
@@ -20,22 +16,6 @@ function getParkings() {
 }
 
 function showParkings() {
-    // var parkings = json.records;
-    // var nbParkings = json.nhits;
-
-    // for(var i = 0; i < nbParkings; i++) {
-    //     var parklibelle = $('#libelle');
-    //     var parkEtat = $('#etat');
-    //     var parkAdresse = $('#adresse');
-    //     var parkVille = $('#ville');
-    //     var parkDispo = $('#dispo');
-
-    //     parklibelle.html(parkings[i].fields.libelle);
-    //     parkEtat.html(parkings[i].fields.etat);
-    //     parkAdresse.html(parkings[i].fields.adresse);
-    //     parkVille.html(parkings[i].fields.ville);
-    //     parkDispo.html(parkings[i].fields.dipo);
-    // }
     var items = [];
 for (var i = 1; i <= 10000; i++) {
   items.push({
