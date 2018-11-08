@@ -162,11 +162,21 @@ var geojson = {
     facet_groups: []
 };
 
+var instructions = document.getElementById('instructions');
+$( "#instructions" ).hide();
+
+var idOk;
+function showPath(e) {
+    idOk = e;
+    getRoute();
+}
+
 // add markers to map
 geojson.records.forEach(function (marker) {
     // create a DOM element for the marker
     var el = document.createElement('div');
-    el.className = 'marker';
+    el.className = 'marker ' + marker.geometry.coordinates;
+    el.id = marker.fields.id;
     el.innerHTML = "<i class='material-icons'> directions_car</i>";
 
     switch (true) {
@@ -184,12 +194,16 @@ geojson.records.forEach(function (marker) {
     var text =
         '<h3>' + marker.fields.libelle + '</h3>' +
         '<p>' + marker.fields.dispo + '</p>' +
-        '<p>' + marker.fields.adresse + '</p>';
+        '<p>' + marker.fields.adresse + '</p>' +
+        '<button  type="button" id=' + marker.fields.id + ' class=' + marker.geometry.coordinates + '  onclick="showPath(this.className)">' + marker.fields.id + '</button>' +
+        '<button  type="button" id=' + marker.fields.id + ' class=' + marker.geometry.coordinates + ' ">Favorits</button>';
 
     var popup = new mapboxgl.Popup({
             offset: 25
         })
+        .setLngLat(marker.geometry.coordinates)
         .setHTML(text);
+
     // add marker to map
     new mapboxgl.Marker(el)
         .setLngLat(marker.geometry.coordinates)
@@ -206,20 +220,20 @@ map.addControl(new mapboxgl.GeolocateControl({
     },
     trackUserLocation: true
 }));
-var destination;
-map.on('click', 'symbols', function (e) {
-      this.destination= e.lngLat;
-});
 
-map.on('load', function () {
-    getRoute();
-});
-
-console.log(destination);
 function getRoute() {
+
+    if (map.getLayer('route')) {
+        try {
+            map.removeLayer('route').removeSource('route');
+            map.removeLayer('start').removeSource('start');
+            map.removeLayer('end').removeSource('end');
+        } catch (err) {}
+    }
+
     var start = [3.059, 50.631];
-    var end = [4.059, 50.631];
-    var directionsRequest = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?geometries=geojson&access_token=' + mapboxgl.accessToken;
+    var end = idOk;
+    var directionsRequest = 'https://api.mapbox.com/directions/v5/mapbox/driving-traffic/' + start[0] + ',' + start[1] + ';' + end + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
     $.ajax({
         method: 'GET',
         url: directionsRequest,
@@ -243,30 +257,42 @@ function getRoute() {
             id: 'start',
             type: 'circle',
             source: {
-              type: 'geojson',
-              data: {
-                type: 'Feature',
-                geometry: {
-                  type: 'Point',
-                  coordinates: start
+                type: 'geojson',
+                data: {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: start
+                    }
                 }
-              }
             }
-          });
-          map.addLayer({
+        });
+        map.addLayer({
             id: 'end',
             type: 'circle',
             source: {
-              type: 'geojson',
-              data: {
-                type: 'Feature',
-                geometry: {
-                  type: 'Point',
-                  coordinates: end
+                type: 'geojson',
+                data: {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: end
+                    }
                 }
-              }
             }
-          });
-          // this is where the JavaScript from the next step will go
+        });
+
+       
+        if (instructions.innerHTML != ""){
+       
+            instructions.innerHTML = "";
+        }
+    
+        var steps = data.routes[0].legs[0].steps;
+        $( "#instructions" ).show();
+        steps.forEach(function (step) {
+            instructions.insertAdjacentHTML('beforeend', '<p> -' + step.maneuver.instruction + '</p> <br/>');
+        });
+
     });
 }

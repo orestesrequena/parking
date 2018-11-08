@@ -22,4 +22,40 @@
     </div>
   </div>
 </template>
+<script>
+ return {
+    on: {
+      pageBeforeRemove: function () {
+        virtualList.destroy();
+      },
+      pageInit: function() {
 
+          var virtualList = app.virtualList.create({
+            // List Element
+            el: '.virtual-list',
+            items: [],
+            // List item Template7 template
+            itemTemplate:
+            '<li>' +
+              '<a href="#" class="item-link item-content">' +
+                '<div class="item-inner">' +
+                  '<div class="item-title-row">' +
+                    '<div class="item-title">{{records.fields.libelle}}</div>' +
+                  '</div>' +
+                  '<div class="item-subtitle">{{records.fields.ville}}</div>' +
+                  
+                  '<div class="item-subtitle">{{disponibilite}}</div>' +
+                '</div>' +
+              '</a>' +
+            '</li>',
+            // Item height
+            height: app.theme === 'ios' ? 63 : 73,
+          });
+
+          getParkings(virtualList);
+
+
+      }
+    }
+  };
+</script>
