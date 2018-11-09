@@ -13,12 +13,7 @@
     </div>
     <div class="searchbar-backdrop"></div>
     <div class="page-content">
-      <div class="list simple-list searchbar-not-found">
-        <ul>
-          <li>Nothing found</li>
-        </ul>
-      </div>
-      <div class="list virtual-list media-list searchbar-found"></div>
+      <div class="list virtual-list"></div>
     </div>
   </div>
 </template>
@@ -36,18 +31,45 @@
             items: [],
             // List item Template7 template
             itemTemplate:
-            '<li>' +
-              '<a href="#" class="item-link item-content">' +
-                '<div class="item-inner">' +
-                  '<div class="item-title-row">' +
-                    '<div class="item-title">{{records.fields.libelle}}</div>' +
-                  '</div>' +
-                  '<div class="item-subtitle">{{records.fields.ville}}</div>' +
-                  
-                  '<div class="item-subtitle">{{disponibilite}}</div>' +
-                '</div>' +
-              '</a>' +
+
+            '<li>'+
+              '<div class="item-content">'+
+                '<div class="item-media"><i class="material-icons"> directions_car</i></div>'+
+                '<div class="item-inner">'+
+                  '<div class="item-title">'+
+                    '<div class="item-header">{{ records.fields.etat}}</div>'+
+                    '{{records.fields.libelle}}'+
+                    '<div class="item-footer">{{records.fields.adresse}} {{records.fields.ville}}</div>'+
+                  '</div>'+
+                  '<div class="item-after"> <span class="badge">{{records.fields.dispo}}</span></div>'+
+                '</div>'+
+              '</div>'+
             '</li>',
+
+            // '<li>'+
+            //   '<div class="item-content">'+
+            //     '<div class="item-media"><i class="icon icon-f7"></i></div>'+
+            //     '<div class="item-inner">'+
+            //       '<div class="item-title">{{ records.fields.etat}} <b>{{records.fields.libelle}}</b></div></br>'+
+            //       '<div class="item-subtitle">{{records.fields.adresse}} {{records.fields.ville}}</div>' +
+            //       '<div class="item-after"> <span class="badge">{{records.fields.dispo}}</span></div>'+
+            //     '</div>'+
+            //   '</div>'+
+            // '</li>',
+
+            // '<li>' +
+            //   '<a href="#" class="item-link item-content">' +
+            //     '<div class="item-inner">' +
+            //       '<div class="item-title-row">' +
+            //         '<div class="item-title">{{ records.fields.etat}} <b>{{records.fields.libelle}}</b> </div>' +
+            //       '</div>' +
+            //       '<div class="item-subtitle">{{records.fields.adresse}} {{records.fields.ville}}</div>' +
+            //       '<div class="item-subtitle"><small> nombre de places disponibles :{{records.fields.dispo}}</small></div>' +
+            //       // '<div class="item-subtitle">{{disponibilite}}</div>' +
+            //     '</div>' +
+            //   '</a>' +
+            // '</li>',
+
             // Item height
             height: app.theme === 'ios' ? 63 : 73,
           });
