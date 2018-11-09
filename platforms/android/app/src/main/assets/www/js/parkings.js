@@ -1,7 +1,7 @@
 function getParkings(virtualList) {
     // console.log('parking');
     $.ajax({
-        url: "https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=disponibilite-parkings&facet=libelle&facet=ville&facet=etat",
+        url: "https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=disponibilite-parkings&rows=26&facet=libelle&facet=ville&facet=etat",
         method: "get",
         dataType: "json",
         success: function(json) {
