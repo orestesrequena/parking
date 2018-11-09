@@ -31,3 +31,18 @@ function getParkings(virtualList) {
         }
     });
 }
+
+function getParkingsMap() {
+    $.ajax({
+       url: "https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=disponibilite-parkings&rows=26&facet=libelle&facet=ville&facet=etat",
+       method: "get",
+       dataType: "json",
+       success: function(json) {        
+           callParkings(json);
+       },
+       error: function(response) {
+           alert("Erreur Serveur");
+       }
+   });
+
+}
