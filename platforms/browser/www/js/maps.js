@@ -163,7 +163,7 @@ var geojson = {
 };
 
 var instructions = document.getElementById('instructions');
-$( "#instructions" ).hide();
+$("#instructions").hide();
 
 var idOk;
 function showPath(e) {
@@ -212,14 +212,17 @@ geojson.records.forEach(function (marker) {
 
 });
 
-// Add geolocate control to the map.
+var startLat = "";
+var startLng = "";
 
-map.addControl(new mapboxgl.GeolocateControl({
-    positionOptions: {
-        enableHighAccuracy: true
-    },
-    trackUserLocation: true
-}));
+function maPosition(position) {
+    startLat = position.coords.latitude;
+    startLng = position.coords.longitude;
+}
+
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(maPosition);
+}
 
 function getRoute() {
 
@@ -231,9 +234,10 @@ function getRoute() {
         } catch (err) {}
     }
 
-    var start = [3.059, 50.631];
+    var start = [startLng, startLat];
     var end = idOk;
-    var directionsRequest = 'https://api.mapbox.com/directions/v5/mapbox/driving-traffic/' + start[0] + ',' + start[1] + ';' + end + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
+    if (startLat) {}
+    var directionsRequest = 'https://api.mapbox.com/directions/v5/mapbox/driving-traffic/' + startLng + ',' + startLat + ';' + end + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
     $.ajax({
         method: 'GET',
         url: directionsRequest,
@@ -282,14 +286,11 @@ function getRoute() {
             }
         });
 
-       
-        if (instructions.innerHTML != ""){
-       
+        if (instructions.innerHTML != "") {
             instructions.innerHTML = "";
         }
-    
         var steps = data.routes[0].legs[0].steps;
-        $( "#instructions" ).show();
+        $("#instructions").show();
         steps.forEach(function (step) {
             instructions.insertAdjacentHTML('beforeend', '<p> -' + step.maneuver.instruction + '</p> <br/>');
         });

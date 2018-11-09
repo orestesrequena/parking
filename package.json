@@ -6,7 +6,8 @@
     },
     "displayName": "helloworld",
     "dependencies": {
-        "cordova-android": "7.0.0"
+        "cordova-android": "7.0.0",
+        "serve": "10.0.2"
     },
     "cordova": {
         "platforms": [

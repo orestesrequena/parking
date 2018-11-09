@@ -8,26 +8,23 @@ function getParkings(virtualList) {
                         
             for (var i = 0; i < json.records.length; i++) {
                 var disponibilite = json.records[i].fields.dispo;
-                // var el = document.getElementsByClassName('material-icons');
+                var color = " red";
 
-                // switch (disponibilite) {
-                //     case (disponibilite > 15):
-                //         el.className += " green";
-                //         break;
-                //     case (disponibilite < 15 && disponibilite > 0):
-                //         el.className += " orange";
-                //         break;
-                //     case (disponibilite === 0):
-                //         el.className += " red";
-                //         break;
-                // }
+                if(disponibilite > 15) {
+                   color = " green";
+                } 
+                if(disponibilite < 15 && disponibilite > 0 ) {
+                    color = " orange";
+                }
 
+          
                 virtualList.appendItem({
+                    color: color,
+                    id: i,
                     records: json.records[i],
                     disponibilite: disponibilite
                 });                
             }
-
         },
         error: function(response) {
             alert("Erreur Serveur");
