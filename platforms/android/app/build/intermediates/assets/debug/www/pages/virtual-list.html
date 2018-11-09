@@ -1,0 +1,60 @@
+<template>
+  <div class="page">
+    <div class="navbar">
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Back</span>
+          </a>
+        </div>
+        <div class="title">Liste des parkings</div>
+      </div>
+    </div>
+    <div class="searchbar-backdrop"></div>
+    <div class="page-content">
+      <div class="list virtual-list"></div>
+    </div>
+  </div>
+</template>
+<script>
+ return {
+    on: {
+      pageBeforeRemove: function () {
+        virtualList.destroy();
+      },
+      pageInit: function() {
+
+          var virtualList = app.virtualList.create({
+            // List Element
+            el: '.virtual-list',
+            items: [],
+            // List item Template7 template
+            itemTemplate:
+
+            '<li>'+
+              '<div class="item-content">'+
+                '<div class="item-media"><i class="material-icons {{color}}"> directions_car</i></div>'+
+                '<div class="item-inner">'+
+                  '<div class="item-title">'+
+                    '<div class="item-header">{{ records.fields.etat}}</div>'+
+                    '{{records.fields.libelle}}'+
+                    '<div class="item-footer">{{records.fields.adresse}} {{records.fields.ville}}</div>'+
+                  '</div>'+
+                  '<div class="item-after"> <span class="badge">{{records.fields.dispo}}</span></div>'+
+                '</div>'+
+              '</div>'+
+            '</li>',
+
+            // Item height
+            height: app.theme === 'ios' ? 63 : 73,
+          });
+
+          getParkings(virtualList);
+
+
+      }
+      
+    }
+  };
+</script>

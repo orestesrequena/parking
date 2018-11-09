@@ -27,6 +27,16 @@ function callParkings(geojson) {
         el.id = marker.fields.id;
         el.innerHTML = "<i class='material-icons'> directions_car</i>";
 
+        var obj= getObjectToBase64(marker);
+        console.log(obj);
+
+        var icon = "star";
+
+        if(isFavorite(marker.recordid)) {
+            icon = "stars";
+            console.log("fav: "+icon+" - "+marker.recordid);
+        }
+        
         switch (true) {
             case (marker.fields.dispo > 15):
                 el.className += " green";
@@ -39,11 +49,12 @@ function callParkings(geojson) {
                 break;
         }
 
+        //addFav("'+ obj+'");
         var text ='<div class="chip">'+'<div class="chip-media bg-color-blue">'+
         '<i class="icon f7-icons ios-only cursor">compass</i>'+
-        '<i class="icon material-icons md-only cursor">star</i>'+
+        '<i id="icon'+marker.recordid+'" class="icon material-icons md-only cursor" onclick=\'addFav("'+obj+'");\'>'+icon+'</i>'+
         '</div>'+
-        '<div class="chip-label">'+ marker.fields.libelle +'</div>'+
+        '<div class="chip-label">'+ marker.recordid +' '+ marker.fields.libelle +'</div>'+
         '</div>'+
         '<p>Places disponibles: ' + marker.fields.dispo + '</p>' +
              '<p>Adresse: ' + marker.fields.adresse + ' <i class="material-icons cursor" id=' + marker.geometry.coordinates + ' onclick="showPath(this.id)" >near_me</i></p>'

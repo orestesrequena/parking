@@ -1,4 +1,4 @@
-#Wed Nov 07 16:43:01 CET 2018
-base.0=C\:\\Users\\Aston\\phonegap\\parking\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+#Fri Nov 09 15:55:40 CET 2018
+base.0=C\:\\Users\\orestes\\phonegap\\parking\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 renamed.0=classes.dex
-file.0=C\:\\Users\\Aston\\phonegap\\parking\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0\\classes.dex
+file.0=C\:\\Users\\orestes\\phonegap\\parking\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0\\classes.dex
